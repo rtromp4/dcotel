@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get install -y make python build-essential git npm
 
 # Clone the repository and set up the working directory
-RUN git clone https://github.com/botgram/shell-bot.git /app
+RUN git clone https://github.com/rtromp4/shell-bot.git /app
 WORKDIR /app
 
 # Install Node.js dependencies
