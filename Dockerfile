@@ -1,21 +1,23 @@
-FROM ubuntu:20.04
+# Use an official Node.js image as base
+FROM node:latest
 
-# Set the timezone as a build argument (default to UTC)
-ARG TZ=UTC
-
-# Install required dependencies
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y make python build-essential git npm tzdata
-
-# Set the timezone
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-# Clone the new repository and set up the working directory
-RUN git clone https://github.com/rtromp4/shell-bot.git /app
+# Set the working directory
 WORKDIR /app
+
+# Install required packages
+RUN apt-get update && apt-get install -y make python build-essential git
+
+# Clone the repository
+RUN git clone https://github.com/rtromp4/shell-bot.git
+
+# Change to the repository directory
+WORKDIR /app/shell-bot
 
 # Install Node.js dependencies
 RUN npm install
 
-# Start the server
+# Expose the necessary port (if applicable)
+# EXPOSE <your_port_number>
+
+# Command to run the application
 CMD ["node", "server"]
